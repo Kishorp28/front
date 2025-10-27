@@ -20,7 +20,7 @@ const JobDescription = () => {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:5000/manual-jd", {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/manual-jd`, {
         job_title: jobTitle,
         company_name: companyName,
         jd_text: jobDescription
@@ -32,7 +32,7 @@ const JobDescription = () => {
       alert("❌ Error processing manual JD: " + (err.response?.data?.error || err.message));
       console.error(err);
     }
-  };
+  }; 
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -52,7 +52,7 @@ const JobDescription = () => {
     formData.append("jd", file);
 
     try {
-      const res = await axios.post("http://localhost:5000/upload-jd", formData, {
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/upload-jd`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       alert("✅ Job Description CSV uploaded successfully!");

@@ -40,12 +40,12 @@ export default function Analytics() {
       console.log('📊 Fetching analytics data...');
       
       // Fetch candidates
-      const candidatesRes = await axios.get("http://localhost:5000/get-results");
+      const candidatesRes = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/get-results`);
       console.log('Candidates data:', candidatesRes.data);
       setCandidates(candidatesRes.data.results || []);
       
       // Fetch jobs
-      const jobsRes = await axios.get("http://localhost:5000/jobs");
+      const jobsRes = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/jobs`);
       console.log('Jobs data:', jobsRes.data);
       setJobs(jobsRes.data.jobs || []);
       

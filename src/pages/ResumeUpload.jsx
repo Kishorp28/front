@@ -280,7 +280,7 @@ export default function ResumeUpload() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/jobs");
+        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/jobs`);
         const allJobs = res.data.jobs || [];
         
         // Filter out jobs with invalid ObjectIds
@@ -291,7 +291,7 @@ export default function ResumeUpload() {
           console.warn(`Filtered out ${allJobs.length - validJobs.length} invalid job IDs`);
           // Clean up invalid jobs from the database
           try {
-            await axios.delete("http://localhost:5000/cleanup-invalid-jobs");
+            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/cleanup-invalid-jobs`);
             console.log("✅ Cleaned up invalid jobs from database");
           } catch (cleanupErr) {
             console.error("Error cleaning up invalid jobs:", cleanupErr);
@@ -327,7 +327,7 @@ export default function ResumeUpload() {
     formData.append("job_id", selectedJobId);
 
     try {
-      const res = await axios.post("http://localhost:5000/upload-resumes", formData);
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/upload-resumes`, formData);
       localStorage.setItem("recruitai-results", JSON.stringify(res.data.results));
       alert("✅ Resumes processed! View results in the Results tab.");
     } catch (err) {
@@ -353,7 +353,7 @@ export default function ResumeUpload() {
 
     try {
       console.log('Deleting job with ID:', jobId);
-      await axios.delete(`http://localhost:5000/delete-job?job_id=${jobId}`);
+      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/delete-job?job_id=${jobId}`);
       setJobs(jobs.filter(job => job._id !== jobId));
       if (selectedJobId === jobId) {
         setSelectedJobId(null);
@@ -373,7 +373,7 @@ export default function ResumeUpload() {
     }
 
     try {
-      await axios.delete("http://localhost:5000/delete-all-jobs");
+      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/delete-all-jobs`);
       setJobs([]);
       setSelectedJobId(null);
       setSelectedJob(null);

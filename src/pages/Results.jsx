@@ -18,8 +18,11 @@ export default function Results() {
   const fetchResults = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/get-results");
+      
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/get-results`);
+      console.log("📊 API Response:", res.data);
       setResults(res.data.results || []);
+      console.log("📊 Results:", results);
     } catch (err) {
       console.error("❌ Error fetching results:", err);
       alert("❌ Error fetching results from server.");
@@ -32,7 +35,7 @@ export default function Results() {
     console.log("📧 Send Emails button clicked!");
     setSending(true);
     try {
-      const res = await axios.post("http://localhost:5000/send-emails");
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-emails`);
       alert(res.data.message || "Emails sent successfully!");
 
       // Refresh the results table
@@ -50,7 +53,7 @@ export default function Results() {
     const previous = results;
     setResults([]);
     try {
-      await axios.delete('http://localhost:5000/clear-results');
+      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/clear-results`);
       alert('✅ Results cleared.');
     } catch (err) {
       console.error('❌ Error clearing results:', err);

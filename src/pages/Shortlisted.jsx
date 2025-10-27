@@ -17,7 +17,7 @@ export default function Shortlisted() {
   const fetchShortlistedCandidates = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/get-results");
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/get-results`);
       const allCandidates = res.data.results || [];
       
       // Filter candidates based on threshold
@@ -38,7 +38,7 @@ export default function Shortlisted() {
   const handleSendEmails = async () => {
     try {
       setSending(true);
-      const res = await axios.post("http://localhost:5000/send-emails");
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/send-emails`);
       alert(`✅ ${res.data.message}`);
       // Refresh the data to show updated email_sent status
       fetchShortlistedCandidates();
