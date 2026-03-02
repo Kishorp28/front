@@ -56,7 +56,7 @@ The frontend is built using React (Vite) and Tailwind CSS and deployed on Netlif
 ## ⚙️ Installation (Local Setup)
 
 ```bash
-git clone <your-frontend-repo-url>
+git clone https://github.com/Kishorp28/front.git
 cd frontend
 npm install
 npm run dev
